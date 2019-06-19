@@ -11,6 +11,7 @@ before_action :authenticate_user!
     @book = Book.find(params[:id])
     @new_book = Book.new
     @user = current_user
+    @b_user = @book.user
   end
 
   def edit
