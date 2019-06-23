@@ -1,13 +1,13 @@
 require 'test_helper'
 
-class HomesControllerTest < ActionDispatch::IntegrationTest
+class HomeControllerTest < ActionDispatch::IntegrationTest
   test "should get top" do
-    get homes_top_url
+    get home_top_url
     assert_response :success
   end
 
   test "should get about" do
-    get homes_about_url
+    get home_about_url
     assert_response :success
   end
 

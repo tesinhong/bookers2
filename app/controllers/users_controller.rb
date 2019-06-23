@@ -16,14 +16,22 @@ before_action :authenticate_user!
   end
 
   def edit
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
+ 
+    if @user != current_user
+       redirect_to user_path(current_user.id)
+    end
   end
 
   def update
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
+
     if @user.update(user_params)
-       flash[:notice] = "successfully updated!"
-       redirect_to user_path(current_user.id)
+      flash[:notice] = "successfully updated!"
+      redirect_to user_path(current_user.id)
+    else
+      flash[:error] = "error!!"
+      redirect_to user_path(current_user.id)
     end
   end
 
@@ -34,5 +42,3 @@ before_action :authenticate_user!
 end
 
 
-# {"id"=>"5"}
-# {"book" => {"title"=>"aaaaaa", name}}

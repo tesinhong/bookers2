@@ -7,6 +7,11 @@
             <%= flash[:notice] %>
           </div>
         <% end %>
+	<% if flash[:error] %>
+          <div class="error">
+            <%= flash[:error] %>
+          </div>
+	<% end %>
         <h1>User info</h1>
         <%= attachment_image_tag @user, :profile_image, size:"60x60", format:"jpeg", fallback:"no_image.jpeg" %>
         <table class="table">
@@ -30,6 +35,12 @@
         </div>
 　　　  <h3>New book</h3>
 	 <%= form_for(@book) do |f| %>
+	   <% if @book.errors.any? %>
+                <%= @book.errors.count %>件のエラーが発生しました
+                <% @book.errors.full_messages.each do |message| %>
+                  <%= message %>
+                <% end %>
+           <% end %>
 	   <div class="field row">
              <h5>Title</h5>
              <%= f.text_field :title, class:"col-xs-12 book_title" %>
@@ -42,8 +53,8 @@
 	     <%= f.submit "Create Book", class:"btn btn-primary col-xs-12" %>
 	   </div>   
          <% end %>
-       </div>
-       <div class="col-lg-9">
+      </div>
+      <div class="col-lg-9">
          <h1>Books</h1>
          <table class="table">
 	 <thead>
