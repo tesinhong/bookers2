@@ -18,9 +18,10 @@ before_action :authenticate_user!, only: [:new, :create, :edit, :uodate, :destro
   def edit
     @book = Book.find(params[:id])
 
-    if @book != current_user
+    if @book.user.id != current_user.id
       redirect_to books_path
     end
+
   end
 
   def create
@@ -40,10 +41,10 @@ before_action :authenticate_user!, only: [:new, :create, :edit, :uodate, :destro
 
     if @book.update(book_params)
       flash[:notice] = "Book was successfully updated!"
-      redirect_to book_path(book.id)
+      redirect_to book_path(@book.id)
     else
       flash[:error] = "error!!"
-      redirect_to book_path(book.id)
+      redirect_to book_path(@book.id)
     end
   end
 
