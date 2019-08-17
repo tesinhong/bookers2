@@ -12,6 +12,16 @@
             <%= flash[:error] %>
           </div>
 	<% end %>
+	<% if flash[:success] %>
+	  <div class="success">
+	    <%= flash[:success] %>
+	  </div>
+	<% end %>
+	<% if flash[:alert] %>
+	  <div class="alert">
+	    <%= flash[:alert] %>
+	  </div>
+	<% end %>
         <h1>User info</h1>
         <%= attachment_image_tag @user, :profile_image, size:"60x60", format:"jpeg", fallback:"no_image.jpeg" %>
         <table class="table">
@@ -32,7 +42,10 @@
          <% else %>
            <%= link_to "", user_path(current_user.id), class:"col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
          <% end %>
-        </div>
+	</div>
+	<div class="row">
+	  <%= render 'relationships/follow', user: @user, follow: @follow %>
+	</div>
 　　　  <h3>New book</h3>
 	 <%= form_for(@book) do |f| %>
 	   <% if @book.errors.any? %>

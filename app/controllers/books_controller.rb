@@ -1,7 +1,8 @@
 class BooksController < ApplicationController
-before_action :authenticate_user!, only: [:new, :create, :edit, :uodate, :destroy, :index, :show]
+before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index, :show]
 
   def index
+    @search = Book.search(params[:search])
     @books = Book.all
     @book = Book.new
     @user = current_user
@@ -13,6 +14,7 @@ before_action :authenticate_user!, only: [:new, :create, :edit, :uodate, :destro
     @new_book = Book.new
     @user = current_user
     @b_user = @book.user
+    @book_comment = BookComment.new
   end
 
   def edit
